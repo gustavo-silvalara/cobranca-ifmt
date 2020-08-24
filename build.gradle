@@ -5,9 +5,9 @@ plugins {
 	id 'java'
 }
 
-compileJava {
-	options.compilerArgs.addAll(["--enable-preview", "--release"])
-}
+//compileJava {
+//	options.compilerArgs.addAll(["--enable-preview", "--release"])
+//}
 
 group = 'com.github.gustavolara.ifmt'
 version = '0.0.1-SNAPSHOT'
