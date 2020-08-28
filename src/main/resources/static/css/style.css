@@ -1,0 +1,28 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+:root{
+    --cor-tema: #359830;
+}
+
+main{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.background-tema{
+    background-color: var(--cor-tema);
+    color: white!important;
+}
+
+.padding{
+    padding: 1rem;
+}
+
+.page-title{
+    width: 100vw;
+    text-align: left;
+}

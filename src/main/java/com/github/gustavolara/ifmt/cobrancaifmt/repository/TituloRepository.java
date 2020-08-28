@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TituloRepository extends JpaRepository<Titulo, Long> {
-
 }

@@ -79,13 +79,13 @@ CSS custom properties (variables)
 
     /* Primary colors */
 
-    --primary-color: #1890ff;
-    --primary-color-light: #45a3fb;
-    --primary-color-very-light: #cfe7fd;
-    --primary-color-dark: #0d518f;
-    --primary-color-very-dark: #172636;
-    --primary-box-shadow-color: rgba(24, 144, 255, 0.3);
-    --primary-box-shadow-color-darker: rgba(24, 144, 255, 0.6); /* A bit of extra contrast is needed in some places */
+    --primary-color: #0be881;
+    --primary-color-light: #81eea8;
+    --primary-color-very-light: #d5f9e5;
+    --primary-color-dark: #0d8951;
+    --primary-color-very-dark: #17312a;
+    --primary-box-shadow-color: rgba(11, 232, 129, 0.3);
+    --primary-box-shadow-color-darker: rgba(11, 232, 129, 0.6); /* A bit of extra contrast is needed in some places */
 
     /* Success colors */
 
