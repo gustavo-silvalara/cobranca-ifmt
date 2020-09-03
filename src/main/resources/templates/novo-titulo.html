@@ -44,10 +44,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <input th:if="${#strings.isEmpty(sucesso)}" onclick="toastAlert(true)"
-                       class="btn btn-success btn-block" type="submit" value="Adicionar">
-                <input th:if="${!#strings.isEmpty(sucesso)}" onclick="toastAlert(false)"
-                       class="btn btn-success btn-block" type="submit" value="Adicionar">
+                <input class="btn btn-success btn-block" type="submit" value="Adicionar">
             </div>
         </div>
     </form>
