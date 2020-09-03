@@ -8,10 +8,17 @@
 <body>
 <div th:replace="navbar.html"></div>
 <main>
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item"><a href="/pagina/titulos">Títulos</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/pagina/titulos/novo">Cadastro de Título</a>
+        </li>
+    </ul>
+    <div class="sticky-alerts"></div>
     <div class="page-title">
         <h1>Novo Título</h1>
     </div>
-    <form action="/titulos/novo" method="POST" class="w-400 mw-full">
+    <form action="/pagina/titulos/novo" method="POST" class="w-400 mw-full">
         <div class="form-group">
             <label for="descricao" class="required">Descrição</label>
             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição"
@@ -37,12 +44,42 @@
         </div>
         <div class="row">
             <div class="col">
-                <input class="btn btn-success btn-block" type="submit" value="Adicionar">
+                <input th:if="${#strings.isEmpty(sucesso)}" onclick="toastAlert(true)"
+                       class="btn btn-success btn-block" type="submit" value="Adicionar">
+                <input th:if="${!#strings.isEmpty(sucesso)}" onclick="toastAlert(false)"
+                       class="btn btn-success btn-block" type="submit" value="Adicionar">
             </div>
         </div>
     </form>
 </main>
 
 <script src="/js/halfmoon.js"></script>
+
+<script type="text/javascript">
+    const map = new Map([
+        [1, "alert-primary"],
+        [2, "alert-success"],
+        [3, "alert-secondary"],
+        [4, "alert-danger"]
+    ]);
+
+    function toastAlert() {
+        const sucesso = "[[${sucesso}]]" == "sucesso";
+        var alertContent = sucesso ? "Salvo com sucesso!" : "Falha ao salvar";
+
+        // Built-in function
+        if (sucesso) {
+            halfmoon.initStickyAlert({
+                content: alertContent,
+                title: "Adicionar Título",
+                alertType: map.get(sucesso ? 2 : 4),
+                hasDismissButton: true,
+                timeShown: 5000
+            });
+        }
+    }
+
+    toastAlert();
+</script>
 </body>
 </html>

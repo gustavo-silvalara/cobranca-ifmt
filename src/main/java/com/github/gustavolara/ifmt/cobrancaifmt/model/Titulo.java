@@ -2,7 +2,6 @@ package com.github.gustavolara.ifmt.cobrancaifmt.model;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
