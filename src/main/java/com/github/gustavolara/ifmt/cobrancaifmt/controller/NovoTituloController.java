@@ -43,6 +43,7 @@ public class NovoTituloController {
 
     private ModelAndView saveTituloAndGetModelAndView(Titulo titulo) {
         ModelAndView mv = new ModelAndView("novo-titulo");
+        mv.addObject("statusList", Status.values());
         var attName = "sucesso";
         try {
             tituloRepository.save(titulo);
