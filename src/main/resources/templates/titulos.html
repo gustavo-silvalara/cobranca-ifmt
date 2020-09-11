@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+        lang="pt-br"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
+<head th:insert="head.html"></head>
+<body>
+<div th:replace="navbar.html"></div>
+<main>
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/pagina/titulos">Títulos</a></li>
+    </ul>
+    <div class="page-title">
+        <h1>Títulos</h1>
+    </div>
+    <div class="mw-full">
+        <form action="/pagina/titulos" class="form-inline">
+            <input th:value="${descricao}" type="text" class="form-control" id="descricao" name="descricao"
+                   placeholder="Descrição">
+            <a th:if="${!#strings.isEmpty(descricao)}" href="/pagina/titulos" class="btn btn-centralizado"
+               role="button"><i class="material-icons">clear</i></a>
+            <button type="submit" class="btn btn-success btn-centralizado"><i class="material-icons">search</i>
+                Pesquisar
+            </button>
+            <a href="/pagina/titulos/novo" class="btn btn-centralizado" role="button"><i class="material-icons">add</i>
+                Novo Título</a>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center">Código</th>
+            <th class="text-left">Descrição</th>
+            <th class="text-center">Vencimento</th>
+            <th class="text-right">Valor</th>
+            <th class="text-center">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="titulo : ${tituloList}">
+            <td class="text-center" th:text="${titulo.id}"></td>
+            <td class="text-left" th:text="${titulo.descricao}"></td>
+            <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+            <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+            <td class="text-center">
+                <span class="badge"
+                      th:classappend="${titulo.pendente ? 'badge-danger' : 'badge-success'}"
+                      th:text="${titulo.status.descricao}"></span>
+            </td>
+            <td class="text-center"><a th:href="|/pagina/titulos/novo?id=${titulo.id}"><i
+                    class="material-icons">edit</i></a></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(tituloList)}">
+            <td>Nenhum registro encontrado.</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<script src="/js/halfmoon.js"></script>
+</body>
+</html>

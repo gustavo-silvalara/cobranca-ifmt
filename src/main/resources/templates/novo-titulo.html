@@ -2,49 +2,58 @@
 <html
         lang="pt-br"
         xmlns:th="https://www.thymeleaf.org"
-        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 >
 <head th:insert="head.html"></head>
 <body>
 <div th:replace="navbar.html"></div>
 <main>
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Início</a></li>
         <li class="breadcrumb-item"><a href="/pagina/titulos">Títulos</a></li>
         <li class="breadcrumb-item active" aria-current="page"><a href="/pagina/titulos/novo">Cadastro de Título</a>
         </li>
     </ul>
     <div class="sticky-alerts"></div>
     <div class="page-title">
-        <h1>Novo Título</h1>
+        <h1 th:text="${titulo != null} ? 'Alterar Título' : 'Novo Título'"></h1>
     </div>
-    <form action="/pagina/titulos/novo" method="POST" class="w-400 mw-full">
+    <form th:action="${titulo == null} ? '/pagina/titulos/novo' : @{/pagina/titulos/novo/{id}(id=${titulo?.id})}"
+          class="w-400 mw-full"
+          th:method="${titulo != null} ? PUT : POST"
+    >
+        <div th:if="${titulo != null}" class="form-group">
+            <label for="id" class="required">Código</label>
+            <input disabled class="form-control" type="number" id="id" name="id" th:value="${titulo?.id}">
+        </div>
         <div class="form-group">
             <label for="descricao" class="required">Descrição</label>
-            <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição"
+            <input th:value="${titulo?.descricao}" type="text" class="form-control" id="descricao" name="descricao"
+                   placeholder="Descrição"
                    required="required">
         </div>
         <div class="form-group">
             <label for="dataVencimento" class="required">Vencimento</label>
-            <input type="date" class="form-control" id="dataVencimento" name="dataVencimento" placeholder="25/12/2021"
+            <input th:value="${titulo?.dataVencimento}" type="date" class="form-control" id="dataVencimento"
+                   name="dataVencimento" placeholder="25/12/2021"
                    required="required">
         </div>
         <div class="form-group">
             <label for="valor" class="required">Valor</label>
-            <input type="number" class="form-control" id="valor" name="valor" placeholder="156,99"
+            <input th:value="${titulo?.valor}" type="number" class="form-control" id="valor" name="valor"
+                   placeholder="156,99"
                    min="0.01" step=".01"
                    required="required">
         </div>
         <div class="form-group">
             <label for="status" class="required">Status</label>
             <select class="form-control" id="status" name="status">
-                <option value="PENDENTE">Pendente</option>
-                <option value="RECEBIDO">Recebido</option>
+                <option th:each="status : ${statusList}" th:value="${status}" th:text="${status.descricao}"
+                        th:selected="${status == titulo?.status}"
+                ></option>
             </select>
         </div>
         <div class="row">
             <div class="col">
-                <input class="btn btn-success btn-block" type="submit" value="Adicionar">
+                <input class="btn btn-success btn-block" type="submit" value="Salvar">
             </div>
         </div>
     </form>
@@ -68,7 +77,7 @@
         if (sucesso) {
             halfmoon.initStickyAlert({
                 content: alertContent,
-                title: "Adicionar Título",
+                title: "Salvar Título",
                 alertType: map.get(sucesso ? 2 : 4),
                 hasDismissButton: true,
                 timeShown: 5000
